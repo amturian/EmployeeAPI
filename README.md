@@ -1,43 +1,59 @@
+<div align="center">
+
 # Employee API
 
-A learning project for building a REST API with ASP.NET Core and C#. The goal is to practice the fundamentals of designing HTTP endpoints, handling requests, persisting data, validating input, and testing API behavior.
+### Learning the fundamentals of building APIs with ASP.NET Core
 
-## What this project does
+![.NET 10](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-Web_API-512BD4?logo=dotnet&logoColor=white)
+![Entity Framework Core](https://img.shields.io/badge/Entity_Framework_Core-ORM-6B3FA0)
+![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite&logoColor=white)
 
-The API manages employee records through an `EmployeesController`. Its endpoints support:
+</div>
 
-- Listing employees, with first and last name filters and pagination parameters.
-- Retrieving an employee by ID.
-- Creating, updating, and deleting employees.
-- Returning standard HTTP outcomes such as `200 OK`, `201 Created`, `204 No Content`, `400 Bad Request`, and `404 Not Found`.
+---
 
-Employee data is stored with Entity Framework Core and SQLite. The project includes EF Core migrations and startup data migration/seeding. It also models benefits and employee-benefit relationships.
+## About
 
-## What I am learning
+This is a hands-on learning project for practicing the building blocks of a REST API with C# and ASP.NET Core. It focuses on how HTTP requests flow through an application, how data is validated and stored, and how API behavior can be tested.
 
-This project gives me hands-on practice with:
+## What the API can do
 
-- ASP.NET Core controllers, attribute routing, route and query parameters, and model binding.
-- HTTP methods, status codes, request/response DTOs, and REST resource design.
-- Dependency injection for controllers, database contexts, validators, and other services.
-- Entity Framework Core, SQLite, database migrations, relationships, and asynchronous queries.
-- Input validation with FluentValidation and an MVC action filter that returns validation errors.
-- Filtering and pagination for collection endpoints.
-- Logging, audit fields, and OpenAPI/Swagger documentation.
-- Integration testing with xUnit, `WebApplicationFactory`, and an in-memory test server setup.
+| Operation | Description |
+| --- | --- |
+| **List employees** | Supports first-name and last-name filters, plus pagination parameters. |
+| **Get an employee** | Retrieves one employee by ID. |
+| **Create an employee** | Validates input and returns a link to the new resource. |
+| **Update an employee** | Changes employee details and records audit information. |
+| **Delete an employee** | Removes an employee and returns an empty success response. |
 
-The project is intentionally a place to learn and improve these concepts incrementally. Some features, such as authorization and the employee benefits endpoints, are not currently enabled as active API routes.
+The API uses Entity Framework Core with SQLite. Database migrations and startup seeding are included, along with models for benefits and employee-benefit relationships.
 
-## Projects and supporting material
+## What I’m learning
 
-- `EmployeeAPI/` — ASP.NET Core API implementation.
-- `EmployeeAPI.test/` — API integration tests.
-- `Notes/` — personal ASP.NET Core API reference notes.
-- `skills/` — reusable learning notes and guidance for API topics.
+- **HTTP and REST:** routes, model binding, request and response DTOs, methods, and status codes.
+- **ASP.NET Core:** controllers, dependency injection, filters, and the request pipeline.
+- **Data access:** EF Core, SQLite, relationships, migrations, and asynchronous queries.
+- **Validation:** FluentValidation and consistent validation error responses.
+- **API usability:** filtering, pagination, logging, audit fields, and OpenAPI/Swagger docs.
+- **Testing:** xUnit integration tests using `WebApplicationFactory` and an in-memory test server.
 
-## Run locally
+> This project is evolving as I learn. Authorization and employee benefits routes are not currently active API features.
 
-You need the .NET SDK that supports the `net10.0` target framework.
+## Repository guide
+
+| Folder | Contents |
+| --- | --- |
+| [`EmployeeAPI/`](EmployeeAPI/) | ASP.NET Core API and data layer |
+| [`EmployeeAPI.test/`](EmployeeAPI.test/) | API integration tests |
+| [`Notes/`](Notes/) | Personal ASP.NET Core API reference notes |
+| [`skills/`](skills/) | Reusable learning guides for API topics |
+
+## Get started
+
+**Prerequisite:** .NET SDK compatible with the `net10.0` target framework.
+
+Start the API:
 
 ```bash
 dotnet run --project EmployeeAPI/EmployeeApi.csproj
@@ -45,8 +61,16 @@ dotnet run --project EmployeeAPI/EmployeeApi.csproj
 
 In the Development environment, OpenAPI and Swagger UI are enabled. The API uses the SQLite connection configured in `EmployeeAPI/appsettings.json`.
 
-## Run the tests
+Run the tests:
 
 ```bash
 dotnet test EmployeeAPI.test/EmployeeAPI.test.csproj
 ```
+
+---
+
+<div align="center">
+
+*Built to learn, one API concept at a time.*
+
+</div>
