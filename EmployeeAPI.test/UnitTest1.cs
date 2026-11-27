@@ -11,6 +11,7 @@ public class BasicTests : IClassFixture<CustomWebApplicationFactory>
     private readonly int _employeeId = 1;
     private readonly int _employeeIdForAddressTest = 1;
 
+    private readonly int _nonExistingEmployeeId = 899;
 
     public BasicTests(CustomWebApplicationFactory factory)
     {
@@ -121,6 +122,17 @@ public class BasicTests : IClassFixture<CustomWebApplicationFactory>
         var problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
         Assert.NotNull(problemDetails);
         Assert.Contains("Address1", problemDetails.Errors.Keys);
+    }
+
+    [Fact]
+    public async Task UpdateEmloyee_ReturnsNotFoundWhenEmployeeDoesNotExist()
+    {
+        var client = _factory.CreateClient();
+        var nonExistingEmployee = new UpdateEmployeeRequest { Address1 = "kokoroko" };
+
+        var response = await client.PutAsJsonAsync($"/employees/{_nonExistingEmployeeId}", nonExistingEmployee);
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 
     [Fact]
