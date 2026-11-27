@@ -17,9 +17,9 @@ public class EmployeesController : BaseController
     /// <summary>
     /// Get all employees.
     /// </summary>
-    /// <returns>An array of all employees.</returns>
+    /// <returns>A page of employees with pagination metadata.</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<GetEmployeeResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetAllEmployeesResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAllEmployees([FromQuery] GetAllEmployeesRequest request)
     {
@@ -42,13 +42,26 @@ public class EmployeesController : BaseController
             }
         }
 
+        var resultsCount = await query.CountAsync();
+
         var employees = await query
             .OrderBy(e => e.Id)
             .Skip((page - 1) * numberOfRecords)
             .Take(numberOfRecords)
             .ToArrayAsync();
 
-        return Ok(employees.Select(EmployeeToGetEmployeeResponse));
+        var metadata = new PaginationMetadata
+        {
+            Page = page,
+            PageSize = numberOfRecords,
+            TotalRecords = resultsCount
+        };
+
+        return Ok(new GetAllEmployeesResponse
+        {
+            Items = employees.Select(EmployeeToGetEmployeeResponse).ToArray(),
+            Pagination = metadata
+        });
 
     }
 

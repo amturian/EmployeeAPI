@@ -10,7 +10,6 @@ public class GetEmployeeResponse
     public string? ZipCode { get; set; }
     public string? PhoneNumber { get; set; }
     public string? Email { get; set; }
-
     // public required List<GetEmployeeResponseEmployeeBenefit> Benefits { get; set; }
 }
 
@@ -20,4 +19,17 @@ public class GetEmployeeResponseEmployeeBenefit
     public required string Name { get; set; }
     public required string Description { get; set; }
     public decimal Cost { get; set; }
+}
+
+public class GetAllEmployeesResponse
+{
+    public required IReadOnlyList<GetEmployeeResponse> Items { get; set; }
+    public required PaginationMetadata Pagination { get; set; }
+}
+
+public class PaginationMetadata
+{
+    public int Page { get; set; }
+    public int PageSize { get; set; }
+    public int TotalRecords { get; set; }
 }
