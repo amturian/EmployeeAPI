@@ -33,7 +33,7 @@ public class UpdateEmployeeRequestValidator : AbstractValidator<UpdateEmployeeRe
         var id = Convert.ToInt32(_httpContext.Request.RouteValues["id"]);
         var employee = await appDbContext.Employees.FindAsync(id);
 
-        if (employee!.Address1 != null && string.IsNullOrWhiteSpace(address))
+        if (employee != null && employee!.Address1 != null && string.IsNullOrWhiteSpace(address))
         {
             return false;
         }
