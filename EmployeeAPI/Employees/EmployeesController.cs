@@ -26,10 +26,8 @@ public class EmployeesController : BaseController
         int page = request?.Page ?? 1;
         int numberOfRecords = request?.RecordsPerPage ?? 100;
 
-        IQueryable<Employee> query = _dbContext.Employees
-            // .Include(e => e.Benefits)
-            .Skip((page - 1) * numberOfRecords)
-            .Take(numberOfRecords);
+        IQueryable<Employee> query = _dbContext.Employees;
+        // .Include(e => e.Benefits)
 
         if (request != null)
         {
@@ -44,7 +42,11 @@ public class EmployeesController : BaseController
             }
         }
 
-        var employees = await query.ToArrayAsync();
+        var employees = await query
+            .OrderBy(e => e.Id)
+            .Skip((page - 1) * numberOfRecords)
+            .Take(numberOfRecords)
+            .ToArrayAsync();
 
         return Ok(employees.Select(EmployeeToGetEmployeeResponse));
 
